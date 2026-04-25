@@ -1,0 +1,24 @@
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.csproj.AssemblyReference.cache
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.FRMHijos.resources
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.FRMOchoPuzzle.resources
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.Properties.Resources.resources
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.csproj.GenerateResource.cache
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.csproj.CoreCompileInputs.cache
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\bin\Debug\IA2026.exe.config
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\bin\Debug\IA2026.exe
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\bin\Debug\IA2026.pdb
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.exe
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.pdb
+C:\Users\Laboratorio1\Downloads\IA2026-master\IA2026\obj\Debug\IA2026.exe.config
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\bin\Debug\IA2026.exe.config
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\bin\Debug\IA2026.exe
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\bin\Debug\IA2026.pdb
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.csproj.AssemblyReference.cache
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.exe.config
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.FRMHijos.resources
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.FRMOchoPuzzle.resources
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.Properties.Resources.resources
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.csproj.GenerateResource.cache
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.csproj.CoreCompileInputs.cache
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.exe
+C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.pdb
