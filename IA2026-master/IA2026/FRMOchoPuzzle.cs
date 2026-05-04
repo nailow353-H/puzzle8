@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +15,10 @@ namespace IA2026
         private int contador = 0;
         private String pos0;
         private String[,] posiciones;
+
+        private List<CLEstado> resultado = new List<CLEstado>();
+        private int contadorSolucion = 0;
+
         public FRMOchoPuzzle()
         {
             InitializeComponent();
@@ -22,158 +26,62 @@ namespace IA2026
 
         private void LBL00_Click(object sender, EventArgs e)
         {
-            if (LBL10.Text == "0")
-            {
-                LBL10.Text = LBL00.Text;
-                LBL00.Text = "0";
-            }
-            else if (LBL01.Text == "0")
-            {
-                LBL01.Text = LBL00.Text;
-                LBL00.Text = "0";
-            }
+            if (LBL10.Text == "0") { LBL10.Text = LBL00.Text; LBL00.Text = "0"; }
+            else if (LBL01.Text == "0") { LBL01.Text = LBL00.Text; LBL00.Text = "0"; }
         }
 
         private void LBL10_Click(object sender, EventArgs e)
         {
-            if (LBL00.Text == "0")
-            {
-                LBL00.Text = LBL10.Text;
-                LBL10.Text = "0";
-            }
-            else if (LBL11.Text == "0")
-            {
-                LBL11.Text = LBL10.Text;
-                LBL10.Text = "0";
-            }
-            else if (LBL20.Text == "0")
-            {
-                LBL20.Text = LBL10.Text;
-                LBL10.Text = "0";
-            }
+            if (LBL00.Text == "0") { LBL00.Text = LBL10.Text; LBL10.Text = "0"; }
+            else if (LBL11.Text == "0") { LBL11.Text = LBL10.Text; LBL10.Text = "0"; }
+            else if (LBL20.Text == "0") { LBL20.Text = LBL10.Text; LBL10.Text = "0"; }
         }
 
         private void LBL20_Click(object sender, EventArgs e)
         {
-            if (LBL10.Text == "0")
-            {
-                LBL10.Text = LBL20.Text;
-                LBL20.Text = "0";
-            }
-            else if (LBL21.Text == "0")
-            {
-                LBL21.Text = LBL20.Text;
-                LBL20.Text = "0";
-            }
+            if (LBL10.Text == "0") { LBL10.Text = LBL20.Text; LBL20.Text = "0"; }
+            else if (LBL21.Text == "0") { LBL21.Text = LBL20.Text; LBL20.Text = "0"; }
         }
 
         private void LBL01_Click(object sender, EventArgs e)
         {
-            if (LBL00.Text == "0")
-            {
-                LBL00.Text = LBL01.Text;
-                LBL01.Text = "0";
-            }
-            else if (LBL11.Text == "0")
-            {
-                LBL11.Text = LBL01.Text;
-                LBL01.Text = "0";
-            }
-            else if (LBL02.Text == "0")
-            {
-                LBL02.Text = LBL01.Text;
-                LBL01.Text = "0";
-            }
+            if (LBL00.Text == "0") { LBL00.Text = LBL01.Text; LBL01.Text = "0"; }
+            else if (LBL11.Text == "0") { LBL11.Text = LBL01.Text; LBL01.Text = "0"; }
+            else if (LBL02.Text == "0") { LBL02.Text = LBL01.Text; LBL01.Text = "0"; }
         }
 
         private void LBL11_Click(object sender, EventArgs e)
         {
-            if (LBL01.Text == "0")
-            {
-                LBL01.Text = LBL11.Text;
-                LBL11.Text = "0";
-            }
-            else if (LBL10.Text == "0")
-            {
-                LBL10.Text = LBL11.Text;
-                LBL11.Text = "0";
-            }
-            else if (LBL21.Text == "0")
-            {
-                LBL21.Text = LBL11.Text;
-                LBL11.Text = "0";
-            }
-            else if (LBL12.Text == "0")
-            {
-                LBL12.Text = LBL11.Text;
-                LBL11.Text = "0";
-            }
+            if (LBL01.Text == "0") { LBL01.Text = LBL11.Text; LBL11.Text = "0"; }
+            else if (LBL10.Text == "0") { LBL10.Text = LBL11.Text; LBL11.Text = "0"; }
+            else if (LBL21.Text == "0") { LBL21.Text = LBL11.Text; LBL11.Text = "0"; }
+            else if (LBL12.Text == "0") { LBL12.Text = LBL11.Text; LBL11.Text = "0"; }
         }
 
         private void LBL21_Click(object sender, EventArgs e)
         {
-            if (LBL11.Text == "0")
-            {
-                LBL11.Text = LBL21.Text;
-                LBL21.Text = "0";
-            }
-            else if (LBL20.Text == "0")
-            {
-                LBL20.Text = LBL21.Text;
-                LBL21.Text = "0";
-            }
-            else if (LBL22.Text == "0")
-            {
-                LBL22.Text = LBL21.Text;
-                LBL21.Text = "0";
-            }
+            if (LBL11.Text == "0") { LBL11.Text = LBL21.Text; LBL21.Text = "0"; }
+            else if (LBL20.Text == "0") { LBL20.Text = LBL21.Text; LBL21.Text = "0"; }
+            else if (LBL22.Text == "0") { LBL22.Text = LBL21.Text; LBL21.Text = "0"; }
         }
 
         private void LBL02_Click(object sender, EventArgs e)
         {
-            if (LBL01.Text == "0")
-            {
-                LBL01.Text = LBL02.Text;
-                LBL02.Text = "0";
-            }
-            else if (LBL12.Text == "0")
-            {
-                LBL12.Text = LBL02.Text;
-                LBL02.Text = "0";
-            }
+            if (LBL01.Text == "0") { LBL01.Text = LBL02.Text; LBL02.Text = "0"; }
+            else if (LBL12.Text == "0") { LBL12.Text = LBL02.Text; LBL02.Text = "0"; }
         }
 
         private void LBL12_Click(object sender, EventArgs e)
         {
-            if (LBL11.Text == "0")
-            {
-                LBL11.Text = LBL12.Text;
-                LBL12.Text = "0";
-            }
-            else if (LBL22.Text == "0")
-            {
-                LBL22.Text = LBL12.Text;
-                LBL12.Text = "0";
-            }
-            else if (LBL02.Text == "0")
-            {
-                LBL02.Text = LBL12.Text;
-                LBL12.Text = "0";
-            }
+            if (LBL11.Text == "0") { LBL11.Text = LBL12.Text; LBL12.Text = "0"; }
+            else if (LBL22.Text == "0") { LBL22.Text = LBL12.Text; LBL12.Text = "0"; }
+            else if (LBL02.Text == "0") { LBL02.Text = LBL12.Text; LBL12.Text = "0"; }
         }
 
         private void LBL22_Click(object sender, EventArgs e)
         {
-            if (LBL21.Text == "0")
-            {
-                LBL21.Text = LBL22.Text;
-                LBL22.Text = "0";
-            }
-            else if (LBL12.Text == "0")
-            {
-                LBL12.Text = LBL22.Text;
-                LBL22.Text = "0";
-            }
+            if (LBL21.Text == "0") { LBL21.Text = LBL22.Text; LBL22.Text = "0"; }
+            else if (LBL12.Text == "0") { LBL12.Text = LBL22.Text; LBL22.Text = "0"; }
         }
 
         private void BTNDesordenar_Click(object sender, EventArgs e)
@@ -184,18 +92,9 @@ namespace IA2026
         private void TMRReloj_Tick(object sender, EventArgs e)
         {
             posiciones = new string[3, 3];
-
-            posiciones[0, 0] = LBL00.Text;
-            posiciones[0, 1] = LBL01.Text;
-            posiciones[0, 2] = LBL02.Text;
-            posiciones[1, 0] = LBL10.Text;
-            posiciones[1, 1] = LBL11.Text;
-            posiciones[1, 2] = LBL12.Text;
-            posiciones[2, 0] = LBL20.Text;
-            posiciones[2, 1] = LBL21.Text;
-            posiciones[2, 2] = LBL22.Text;
-
-
+            posiciones[0, 0] = LBL00.Text; posiciones[0, 1] = LBL01.Text; posiciones[0, 2] = LBL02.Text;
+            posiciones[1, 0] = LBL10.Text; posiciones[1, 1] = LBL11.Text; posiciones[1, 2] = LBL12.Text;
+            posiciones[2, 0] = LBL20.Text; posiciones[2, 1] = LBL21.Text; posiciones[2, 2] = LBL22.Text;
 
             if (contador < 50)
             {
@@ -203,16 +102,9 @@ namespace IA2026
                 LBLContador.Text = contador.ToString();
 
                 for (int i = 0; i < 3; i++)
-                {
                     for (int j = 0; j < 3; j++)
-                    {
                         if (posiciones[i, j] == "0")
-                        {
                             pos0 = i.ToString() + j.ToString();
-                        }
-
-                    }
-                }
 
                 Random rn = new Random();
                 int aleatorio = 0;
@@ -220,188 +112,56 @@ namespace IA2026
                 {
                     case "00":
                         aleatorio = rn.Next(1, 3);
-                        if (aleatorio == 1)
-                        {
-                            LBL00.Text = LBL10.Text;
-                            LBL10.Text = "0";
-                        }
-                        else
-                        {
-                            LBL00.Text = LBL01.Text;
-                            LBL01.Text = "0";
-                        }
-
+                        if (aleatorio == 1) { LBL00.Text = LBL10.Text; LBL10.Text = "0"; }
+                        else { LBL00.Text = LBL01.Text; LBL01.Text = "0"; }
                         break;
                     case "01":
-
                         aleatorio = rn.Next(1, 4);
-                        if (aleatorio == 1)
-                        {
-                            LBL01.Text = LBL00.Text;
-                            LBL00.Text = "0";
-                        }
-                        else
-                        {
-                            if (aleatorio == 2)
-                            {
-                                LBL01.Text = LBL11.Text;
-                                LBL11.Text = "0";
-                            }
-                            else
-                            {
-                                LBL01.Text = LBL02.Text;
-                                LBL02.Text = "0";
-
-                            }
-                        }
-
+                        if (aleatorio == 1) { LBL01.Text = LBL00.Text; LBL00.Text = "0"; }
+                        else if (aleatorio == 2) { LBL01.Text = LBL11.Text; LBL11.Text = "0"; }
+                        else { LBL01.Text = LBL02.Text; LBL02.Text = "0"; }
                         break;
                     case "02":
                         aleatorio = rn.Next(1, 3);
-                        if (aleatorio == 1)
-                        {
-                            LBL02.Text = LBL01.Text;
-                            LBL01.Text = "0";
-                        }
-                        else
-                        {
-                            LBL02.Text = LBL12.Text;
-                            LBL12.Text = "0";
-                        }
-
+                        if (aleatorio == 1) { LBL02.Text = LBL01.Text; LBL01.Text = "0"; }
+                        else { LBL02.Text = LBL12.Text; LBL12.Text = "0"; }
                         break;
                     case "10":
                         aleatorio = rn.Next(1, 4);
-                        if (aleatorio == 1)
-                        {
-                            LBL10.Text = LBL00.Text;
-                            LBL00.Text = "0";
-                        }
-                        else
-                        {
-                            if (aleatorio == 2)
-                            {
-                                LBL10.Text = LBL11.Text;
-                                LBL11.Text = "0";
-                            }
-                            else
-                            {
-                                LBL10.Text = LBL20.Text;
-                                LBL20.Text = "0";
-
-                            }
-                        }
-
+                        if (aleatorio == 1) { LBL10.Text = LBL00.Text; LBL00.Text = "0"; }
+                        else if (aleatorio == 2) { LBL10.Text = LBL11.Text; LBL11.Text = "0"; }
+                        else { LBL10.Text = LBL20.Text; LBL20.Text = "0"; }
                         break;
                     case "11":
                         aleatorio = rn.Next(1, 5);
-                        if (aleatorio == 1)
-                        {
-                            LBL11.Text = LBL01.Text;
-                            LBL01.Text = "0";
-                        }
-                        else
-                        {
-                            if (aleatorio == 2)
-                            {
-                                LBL11.Text = LBL12.Text;
-                                LBL12.Text = "0";
-
-                            }
-                            else
-                            {
-                                if (aleatorio == 3)
-                                {
-                                    LBL11.Text = LBL21.Text;
-                                    LBL21.Text = "0";
-                                }
-                                else
-                                {
-                                    LBL11.Text = LBL10.Text;
-                                    LBL10.Text = "0";
-
-                                }
-                            }
-                        }
-
+                        if (aleatorio == 1) { LBL11.Text = LBL01.Text; LBL01.Text = "0"; }
+                        else if (aleatorio == 2) { LBL11.Text = LBL12.Text; LBL12.Text = "0"; }
+                        else if (aleatorio == 3) { LBL11.Text = LBL21.Text; LBL21.Text = "0"; }
+                        else { LBL11.Text = LBL10.Text; LBL10.Text = "0"; }
                         break;
                     case "12":
                         aleatorio = rn.Next(1, 4);
-                        if (aleatorio == 1)
-                        {
-                            LBL12.Text = LBL02.Text;
-                            LBL02.Text = "0";
-                        }
-                        else
-                        {
-                            if (aleatorio == 2)
-                            {
-                                LBL12.Text = LBL11.Text;
-                                LBL11.Text = "0";
-                            }
-                            else
-                            {
-                                LBL12.Text = LBL22.Text;
-                                LBL22.Text = "0";
-
-                            }
-                        }
-
+                        if (aleatorio == 1) { LBL12.Text = LBL02.Text; LBL02.Text = "0"; }
+                        else if (aleatorio == 2) { LBL12.Text = LBL11.Text; LBL11.Text = "0"; }
+                        else { LBL12.Text = LBL22.Text; LBL22.Text = "0"; }
                         break;
                     case "20":
                         aleatorio = rn.Next(1, 3);
-                        if (aleatorio == 1)
-                        {
-                            LBL20.Text = LBL10.Text;
-                            LBL10.Text = "0";
-                        }
-                        else
-                        {
-                            LBL20.Text = LBL21.Text;
-                            LBL21.Text = "0";
-                        }
-
+                        if (aleatorio == 1) { LBL20.Text = LBL10.Text; LBL10.Text = "0"; }
+                        else { LBL20.Text = LBL21.Text; LBL21.Text = "0"; }
                         break;
                     case "21":
                         aleatorio = rn.Next(1, 4);
-                        if (aleatorio == 1)
-                        {
-                            LBL21.Text = LBL20.Text;
-                            LBL20.Text = "0";
-                        }
-                        else
-                        {
-                            if (aleatorio == 2)
-                            {
-                                LBL21.Text = LBL11.Text;
-                                LBL11.Text = "0";
-                            }
-                            else
-                            {
-                                LBL21.Text = LBL22.Text;
-                                LBL22.Text = "0";
-
-                            }
-                        }
-
+                        if (aleatorio == 1) { LBL21.Text = LBL20.Text; LBL20.Text = "0"; }
+                        else if (aleatorio == 2) { LBL21.Text = LBL11.Text; LBL11.Text = "0"; }
+                        else { LBL21.Text = LBL22.Text; LBL22.Text = "0"; }
                         break;
                     case "22":
-
                         aleatorio = rn.Next(1, 3);
-                        if (aleatorio == 1)
-                        {
-                            LBL22.Text = LBL21.Text;
-                            LBL21.Text = "0";
-                        }
-                        else
-                        {
-                            LBL22.Text = LBL12.Text;
-                            LBL12.Text = "0";
-                        }
-
+                        if (aleatorio == 1) { LBL22.Text = LBL21.Text; LBL21.Text = "0"; }
+                        else { LBL22.Text = LBL12.Text; LBL12.Text = "0"; }
                         break;
                 }
-
             }
             else
             {
@@ -422,8 +182,7 @@ namespace IA2026
                                             Convert.ToInt32(LBL12.Text),
                                             Convert.ToInt32(LBL20.Text),
                                             Convert.ToInt32(LBL21.Text),
-                                            Convert.ToInt32(LBL22.Text)
-                                            );
+                                            Convert.ToInt32(LBL22.Text));
             List<CLEstado> Hijos = Inicial.GenerarHijos();
             FRMHijos A = new FRMHijos();
             A.Hijos = Hijos;
@@ -440,15 +199,75 @@ namespace IA2026
                                             Convert.ToInt32(LBL12.Text),
                                             Convert.ToInt32(LBL20.Text),
                                             Convert.ToInt32(LBL21.Text),
-                                            Convert.ToInt32(LBL22.Text)
-                                            );
+                                            Convert.ToInt32(LBL22.Text));
             if (Inicial.EsFinal())
-            {
                 MessageBox.Show("ES el estado FINAL");
-            }
-            else 
-            {
+            else
                 MessageBox.Show("NO ES el estado FINAL");
+        }
+
+        // ══════════════════════════════════════════════════════
+        // CORREGIDO: BTNAnchuraPrioritaria_Click
+        // El BFS ahora corre en un hilo separado con Task.Run
+        // para no bloquear la UI mientras busca la solución.
+        // Al terminar, usa Invoke() para volver al hilo principal
+        // y actualizar los controles de forma segura.
+        // ══════════════════════════════════════════════════════
+        private async void BTNAnchuraPrioritaria_Click(object sender, EventArgs e)
+        {
+            // Leer el tablero ANTES de entrar al hilo
+            CLEstado Inicial = new CLEstado(Convert.ToInt32(LBL00.Text),
+                                            Convert.ToInt32(LBL01.Text),
+                                            Convert.ToInt32(LBL02.Text),
+                                            Convert.ToInt32(LBL10.Text),
+                                            Convert.ToInt32(LBL11.Text),
+                                            Convert.ToInt32(LBL12.Text),
+                                            Convert.ToInt32(LBL20.Text),
+                                            Convert.ToInt32(LBL21.Text),
+                                            Convert.ToInt32(LBL22.Text));
+
+            // Deshabilitar el botón mientras busca
+            BTNAnchuraPrioritaria.Enabled = false;
+            BTNAnchuraPrioritaria.Text = "Buscando...";
+
+            // Correr el BFS en hilo separado para no congelar la UI
+            resultado = await Task.Run(() => CLAlgoritmosDeBusqueda.AnchuraPrioritaria(Inicial));
+
+            // Volver al hilo principal para actualizar los controles
+            BTNAnchuraPrioritaria.Enabled = true;
+            BTNAnchuraPrioritaria.Text = "Anchura Prioritaria";
+
+            if (resultado.Count > 0)
+            {
+                MessageBox.Show("¡Solución encontrada en " + resultado.Count + " pasos!");
+                contadorSolucion = 0;
+                TMRSolucion.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("No se encontró solución.");
+            }
+        }
+
+        private void TMRSolucion_Tick(object sender, EventArgs e)
+        {
+            if (contadorSolucion < resultado.Count)
+            {
+                LBL00.Text = resultado[contadorSolucion].tablero[0, 0].ToString();
+                LBL01.Text = resultado[contadorSolucion].tablero[0, 1].ToString();
+                LBL02.Text = resultado[contadorSolucion].tablero[0, 2].ToString();
+                LBL10.Text = resultado[contadorSolucion].tablero[1, 0].ToString();
+                LBL11.Text = resultado[contadorSolucion].tablero[1, 1].ToString();
+                LBL12.Text = resultado[contadorSolucion].tablero[1, 2].ToString();
+                LBL20.Text = resultado[contadorSolucion].tablero[2, 0].ToString();
+                LBL21.Text = resultado[contadorSolucion].tablero[2, 1].ToString();
+                LBL22.Text = resultado[contadorSolucion].tablero[2, 2].ToString();
+                contadorSolucion++;
+            }
+            else
+            {
+                TMRSolucion.Enabled = false;
+                MessageBox.Show("¡Puzzle resuelto!");
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,9 +52,6 @@ namespace IA2026
             this._tablero[2, 2] = p22;
             this._nivel = 0;
         }
-
-
-
         #endregion
 
         #region Métodos
@@ -343,12 +340,23 @@ namespace IA2026
             }
             return Respuesta;
         }
-
+        
+        //busqueda con esfinal
         public bool EsFinal()
         {
-            bool res = false;
+            int[,] final = new int[,]
+            {
+                { 1, 2, 3 },
+                { 4, 5, 6 },
+                { 7, 8, 0 }
+            };
 
-            return res;
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                    if (this._tablero[i, j] != final[i, j])
+                        return false;
+
+            return true;
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,86 +8,100 @@ namespace IA2026
 {
     public static class CLAlgoritmosDeBusqueda
     {
-        public static List<CLEstado> AnchuraPrioritaria(CLEstado Inicial)
-        { 
-            //Definición de variables
-            List<CLEstado> Solucion= new List<CLEstado>();
-            List<CLEstado> Abiertos = new List<CLEstado>();
-            List<CLEstado> Cerrados = new List<CLEstado>();
-            List<CLEstado> Hijos = new List<CLEstado>();
-            CLEstado Actual= new CLEstado();
-            //Algoritmo
-            Abiertos.Add(Inicial);
-            Actual = Abiertos[0];
-            while (!Actual.EsFinal()&&Abiertos.Count>0) 
-            { 
-                Cerrados.Add(Actual);
-                Abiertos.RemoveAt(0);
-                Hijos = Actual.GenerarHijos();
-                Hijos = TratarRepetidos(Hijos, Abiertos, Cerrados);
-                foreach (CLEstado a in Hijos)
-                    Abiertos.Add(a);
-                Actual = Abiertos[0];
-            }
-
-            return Solucion;
+        // Compara dos tableros celda a celda
+        private static bool SonIguales(CLEstado a, CLEstado b)
+        {
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                    if (a.tablero[i, j] != b.tablero[i, j])
+                        return false;
+            return true;
         }
 
-        private static List<CLEstado> TratarRepetidos(List<CLEstado> hijos, List<CLEstado> abiertos, List<CLEstado> cerrados)
+        // Filtra hijos que ya están en Abiertos o Cerrados
+        private static List<CLEstado> TratarRepetidos(List<CLEstado> hijos,
+                                                       List<CLEstado> abiertos,
+                                                       List<CLEstado> cerrados)
         {
             List<CLEstado> HijosDepurado = new List<CLEstado>();
-            bool encontrado=false;
+            bool encontrado = false;
+
             foreach (CLEstado a in hijos)
             {
                 encontrado = false;
-                //Comparar con abiertos
-                foreach (CLEstado b in abiertos) { 
-                    bool iguales = true;
-                    for (int i = 0; i < 3; i++) 
-                    {
-                        for (int j = 0; j < 3; j++) 
-                        {
-                            if (a.tablero[i, j] != b.tablero[i, j]) 
-                            {
-                                iguales = false;
-                            }
-                            if(iguales)
-                            {
-                                encontrado = true;
-                            }
-                        }
-                    }
+
+                foreach (CLEstado b in abiertos)
+                {
+                    if (SonIguales(a, b)) { encontrado = true; break; }
                 }
-                //COmparo con cerrados
+
                 if (!encontrado)
                 {
                     foreach (CLEstado b in cerrados)
                     {
-                        bool iguales = true;
-                        for (int i = 0; i < 3; i++)
-                        {
-                            for (int j = 0; j < 3; j++)
-                            {
-                                if (a.tablero[i, j] != b.tablero[i, j])
-                                {
-                                    iguales = false;
-                                }
-                                if (iguales)
-                                {
-                                    encontrado = true;
-                                }
-                            }
-                        }
+                        if (SonIguales(a, b)) { encontrado = true; break; }
                     }
                 }
 
                 if (!encontrado)
-                {
                     HijosDepurado.Add(a);
-                }
             }
 
             return HijosDepurado;
+        }
+
+        public static List<CLEstado> AnchuraPrioritaria(CLEstado Inicial)
+        {
+            List<CLEstado> Solucion = new List<CLEstado>();
+            List<CLEstado> Abiertos = new List<CLEstado>();
+            List<CLEstado> Cerrados = new List<CLEstado>();
+            List<CLEstado> Hijos    = new List<CLEstado>();
+
+            Dictionary<CLEstado, CLEstado> Padre = new Dictionary<CLEstado, CLEstado>();
+
+            Abiertos.Add(Inicial);
+            Padre[Inicial] = null;
+
+            // ══════════════════════════════════════════════════════
+            // CORREGIDO: el while ahora verifica Abiertos.Count > 0
+            // ANTES de intentar acceder a Abiertos[0]
+            // La estructura correcta es:
+            //   1. Verificar que haya nodos por explorar
+            //   2. Tomar el primero
+            //   3. Si es final → salir
+            //   4. Si no → expandir y continuar
+            // ══════════════════════════════════════════════════════
+            while (Abiertos.Count > 0)
+            {
+                CLEstado Actual = Abiertos[0]; // tomar el primero de Abiertos
+                Abiertos.RemoveAt(0);          // sacarlo de Abiertos
+                Cerrados.Add(Actual);          // pasarlo a Cerrados
+
+                // Si es el estado final → reconstruir camino y salir
+                if (Actual.EsFinal())
+                {
+                    CLEstado nodo = Actual;
+                    while (nodo != null)
+                    {
+                        Solucion.Insert(0, nodo);
+                        Padre.TryGetValue(nodo, out nodo);
+                    }
+                    return Solucion; // retornar inmediatamente
+                }
+
+                // Si no es final → generar hijos y agregarlos a Abiertos
+                Hijos = Actual.GenerarHijos();
+                Hijos = TratarRepetidos(Hijos, Abiertos, Cerrados);
+
+                foreach (CLEstado a in Hijos)
+                {
+                    Abiertos.Add(a);
+                    Padre[a] = Actual;
+                }
+            }
+
+            // Si salimos del while sin encontrar solución → Solucion queda vacío
+            return Solucion;
         }
     }
 }

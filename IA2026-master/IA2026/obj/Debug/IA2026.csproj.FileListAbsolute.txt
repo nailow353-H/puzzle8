@@ -22,3 +22,15 @@ C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.csp
 C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.csproj.CoreCompileInputs.cache
 C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.exe
 C:\alvaro\2026\inteligencia artificial\IA2026-master\IA2026\obj\Debug\IA2026.pdb
+C:\alvaro\inteligencia\IA2026\bin\Debug\IA2026.exe.config
+C:\alvaro\inteligencia\IA2026\bin\Debug\IA2026.exe
+C:\alvaro\inteligencia\IA2026\bin\Debug\IA2026.pdb
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.csproj.AssemblyReference.cache
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.exe.config
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.FRMHijos.resources
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.FRMOchoPuzzle.resources
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.Properties.Resources.resources
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.csproj.GenerateResource.cache
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.csproj.CoreCompileInputs.cache
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.exe
+C:\alvaro\inteligencia\IA2026\obj\Debug\IA2026.pdb
