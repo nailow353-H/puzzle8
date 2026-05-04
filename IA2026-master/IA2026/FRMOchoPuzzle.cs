@@ -210,60 +210,99 @@ namespace IA2026
         //boton de achura prioritaria para buscar la salida mas optima en reducimos movimientos
         private async void BTNAnchuraPrioritaria_Click(object sender, EventArgs e)
         {
-            // Leemos tablero
-            CLEstado Inicial = new CLEstado(Convert.ToInt32(LBL00.Text),
-                                            Convert.ToInt32(LBL01.Text),
-                                            Convert.ToInt32(LBL02.Text),
-                                            Convert.ToInt32(LBL10.Text),
-                                            Convert.ToInt32(LBL11.Text),
-                                            Convert.ToInt32(LBL12.Text),
-                                            Convert.ToInt32(LBL20.Text),
-                                            Convert.ToInt32(LBL21.Text),
-                                            Convert.ToInt32(LBL22.Text));
-
-            // Deshabilitar el botón mientras busca
-            BTNAnchuraPrioritaria.Enabled = false;
-            BTNAnchuraPrioritaria.Text = "Buscando...";
-
+             // Leer el tablero ANTES de entrar
+             CLEstado Inicial = new CLEstado(Convert.ToInt32(LBL00.Text),
+                                             Convert.ToInt32(LBL01.Text),
+                                             Convert.ToInt32(LBL02.Text),
+                                             Convert.ToInt32(LBL10.Text),
+                                             Convert.ToInt32(LBL11.Text),
+                                             Convert.ToInt32(LBL12.Text),
+                                             Convert.ToInt32(LBL20.Text),
+                                             Convert.ToInt32(LBL21.Text),
+                                             Convert.ToInt32(LBL22.Text));
             
-            resultado = await Task.Run(() => CLAlgoritmosDeBusqueda.AnchuraPrioritaria(Inicial));
-
+             // Deshabilitar el botón mientras busca
+             BTNAnchuraPrioritaria.Enabled = false;
+             BTNAnchuraPrioritaria.Text = "Buscando...";
             
-            BTNAnchuraPrioritaria.Enabled = true;
-            BTNAnchuraPrioritaria.Text = "Anchura Prioritaria";
-
-            if (resultado.Count > 0)
-            {
-                MessageBox.Show("¡Solución encontrada en " + resultado.Count + " pasos!");
-                contadorSolucion = 0;
-                TMRSolucion.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show("No se encontró solución.");
-            }
+             // Correr el BFS en hilo separado para no congelar la UI
+             resultado = await Task.Run(() => CLAlgoritmosDeBusqueda.AnchuraPrioritaria(Inicial));
+            
+             
+             BTNAnchuraPrioritaria.Enabled = true;
+             BTNAnchuraPrioritaria.Text = "Anchura Prioritaria";
+            
+             if (resultado.Count > 0)
+             {
+            
+            
+                 MessageBox.Show("¡Solución encontrada en el nivel" + resultado.Count );
+            
+                 resultadoInverso = new List<CLEstado>(resultado);
+                 resultadoInverso.Reverse();
+            
+                 contadorSolucion = 0;
+                 TMRSolucion.Enabled = true;
+                 
+            
+            
+             }
+             else
+             {
+                 MessageBox.Show("No se encontró solución.");
+             }
         }
 
         private void TMRSolucion_Tick(object sender, EventArgs e)
         {
-            if (contadorSolucion < resultado.Count)
-            {
-                LBL00.Text = resultado[contadorSolucion].tablero[0, 0].ToString();
-                LBL01.Text = resultado[contadorSolucion].tablero[0, 1].ToString();
-                LBL02.Text = resultado[contadorSolucion].tablero[0, 2].ToString();
-                LBL10.Text = resultado[contadorSolucion].tablero[1, 0].ToString();
-                LBL11.Text = resultado[contadorSolucion].tablero[1, 1].ToString();
-                LBL12.Text = resultado[contadorSolucion].tablero[1, 2].ToString();
-                LBL20.Text = resultado[contadorSolucion].tablero[2, 0].ToString();
-                LBL21.Text = resultado[contadorSolucion].tablero[2, 1].ToString();
-                LBL22.Text = resultado[contadorSolucion].tablero[2, 2].ToString();
-                contadorSolucion++;
-            }
-            else
-            {
-                TMRSolucion.Enabled = false;
-                MessageBox.Show("¡Puzzle resuelto!");
-            }
+            List<CLEstado> listaActual = reproduciendoInverso ? resultadoInverso : resultado;
+                if (contadorSolucion < listaActual.Count)
+                {
+                            var estado = listaActual[contadorSolucion];
+                        
+                            LBL00.Text = estado.tablero[0, 0].ToString();
+                            LBL01.Text = estado.tablero[0, 1].ToString();
+                            LBL02.Text = estado.tablero[0, 2].ToString();
+                            LBL10.Text = estado.tablero[1, 0].ToString();
+                            LBL11.Text = estado.tablero[1, 1].ToString();
+                            LBL12.Text = estado.tablero[1, 2].ToString();
+                            LBL20.Text = estado.tablero[2, 0].ToString();
+                            LBL21.Text = estado.tablero[2, 1].ToString();
+                            LBL22.Text = estado.tablero[2, 2].ToString();
+                        
+                            contadorSolucion++;
+                        }
+                        
+                        else
+                        {
+                            if (!reproduciendoInverso)
+                            {
+                                
+                                TMRSolucion.Enabled = false;
+                        
+                                DialogResult res = MessageBox.Show(
+                                    "El puzzle se volverá a desordenar por la misma ruta",
+                                    "Confirmación",
+                                    MessageBoxButtons.OKCancel
+                                );
+                        
+                                if (res == DialogResult.OK)
+                                {
+                                    reproduciendoInverso = true;
+                                    contadorSolucion = 0;
+                                    TMRSolucion.Enabled = true; 
+                                }
+                            }
+                            else
+                            {
+                                
+                                TMRSolucion.Enabled = false;
+                                reproduciendoInverso = false;
+                        
+                                MessageBox.Show("Regresó al estado desordenado original");
+                            }
+                        
+                 }
         }
     }
 }
