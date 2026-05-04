@@ -8,7 +8,7 @@ namespace IA2026
 {
     public static class CLAlgoritmosDeBusqueda
     {
-        // Compara dos tableros celda a celda
+        // Comparamos dos tableros celda a celda
         private static bool SonIguales(CLEstado a, CLEstado b)
         {
             for (int i = 0; i < 3; i++)
@@ -62,22 +62,19 @@ namespace IA2026
             Abiertos.Add(Inicial);
             Padre[Inicial] = null;
 
-            // ══════════════════════════════════════════════════════
-            // CORREGIDO: el while ahora verifica Abiertos.Count > 0
-            // ANTES de intentar acceder a Abiertos[0]
-            // La estructura correcta es:
-            //   1. Verificar que haya nodos por explorar
-            //   2. Tomar el primero
-            //   3. Si es final → salir
-            //   4. Si no → expandir y continuar
-            // ══════════════════════════════════════════════════════
+            // el while verifica Abiertos.Count > 0
+            // pasos que debo seguir
+            //   Verificar que haya nodos por explorar
+            //    Tomar el primero
+            //    Si es final es correcto  salir
+            //   Si no debe expandir y continuar
             while (Abiertos.Count > 0)
             {
-                CLEstado Actual = Abiertos[0]; // tomar el primero de Abiertos
-                Abiertos.RemoveAt(0);          // sacarlo de Abiertos
-                Cerrados.Add(Actual);          // pasarlo a Cerrados
+                CLEstado Actual = Abiertos[0]; // tomamos el primero de abiertos
+                Abiertos.RemoveAt(0);          // lo scaamos de Abiertos
+                Cerrados.Add(Actual);          // lo pasamos a  Cerrados
 
-                // Si es el estado final → reconstruir camino y salir
+                // Si es el estado final es true reconstruir camino y salir
                 if (Actual.EsFinal())
                 {
                     CLEstado nodo = Actual;
@@ -89,7 +86,7 @@ namespace IA2026
                     return Solucion; // retornar inmediatamente
                 }
 
-                // Si no es final → generar hijos y agregarlos a Abiertos
+                // Si es final es falso,  generar hijos y agregarlos a Abiertos
                 Hijos = Actual.GenerarHijos();
                 Hijos = TratarRepetidos(Hijos, Abiertos, Cerrados);
 
@@ -100,7 +97,7 @@ namespace IA2026
                 }
             }
 
-            // Si salimos del while sin encontrar solución → Solucion queda vacío
+            // Si salimos del while sin encontrar solución la Solucion queda vacío
             return Solucion;
         }
     }
