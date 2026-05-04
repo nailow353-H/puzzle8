@@ -206,16 +206,11 @@ namespace IA2026
                 MessageBox.Show("NO ES el estado FINAL");
         }
 
-        // ══════════════════════════════════════════════════════
-        // CORREGIDO: BTNAnchuraPrioritaria_Click
-        // El BFS ahora corre en un hilo separado con Task.Run
-        // para no bloquear la UI mientras busca la solución.
-        // Al terminar, usa Invoke() para volver al hilo principal
-        // y actualizar los controles de forma segura.
-        // ══════════════════════════════════════════════════════
+        
+        //boton de achura prioritaria para buscar la salida mas optima en reducimos movimientos
         private async void BTNAnchuraPrioritaria_Click(object sender, EventArgs e)
         {
-            // Leer el tablero ANTES de entrar al hilo
+            // Leemos tablero
             CLEstado Inicial = new CLEstado(Convert.ToInt32(LBL00.Text),
                                             Convert.ToInt32(LBL01.Text),
                                             Convert.ToInt32(LBL02.Text),
@@ -230,10 +225,10 @@ namespace IA2026
             BTNAnchuraPrioritaria.Enabled = false;
             BTNAnchuraPrioritaria.Text = "Buscando...";
 
-            // Correr el BFS en hilo separado para no congelar la UI
+            
             resultado = await Task.Run(() => CLAlgoritmosDeBusqueda.AnchuraPrioritaria(Inicial));
 
-            // Volver al hilo principal para actualizar los controles
+            
             BTNAnchuraPrioritaria.Enabled = true;
             BTNAnchuraPrioritaria.Text = "Anchura Prioritaria";
 
