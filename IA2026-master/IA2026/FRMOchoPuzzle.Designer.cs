@@ -199,11 +199,10 @@ namespace IA2026
             this.BTNEsFinal.UseVisualStyleBackColor = true;
             this.BTNEsFinal.Click += new System.EventHandler(this.BTNEsFinal_Click);
 
-            // ══════════════════════════════════════════════════════
-            // NUEVO: TMRSolucion
-            // Interval = 500 → se dispara cada medio segundo
+            //TMRSolucion
+            // Interval = 500 se activa cada medio segundo
             // Conectado al método TMRSolucion_Tick del .cs
-            // ══════════════════════════════════════════════════════
+           
             this.TMRSolucion.Interval = 500;
             this.TMRSolucion.Tick += new System.EventHandler(this.TMRSolucion_Tick);
 
