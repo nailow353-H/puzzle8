@@ -1,4 +1,4 @@
-namespace IA2026
+﻿namespace IA2026
 {
     partial class FRMOchoPuzzle
     {
@@ -7,15 +7,25 @@ namespace IA2026
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
+            {
                 components.Dispose();
+            }
             base.Dispose(disposing);
         }
 
         #region Código generado por el Diseñador de Windows Forms
 
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -34,11 +44,14 @@ namespace IA2026
             this.BTNGenerarHijos = new System.Windows.Forms.Button();
             this.BTNEsFinal = new System.Windows.Forms.Button();
             this.BTNAnchuraPrioritaria = new System.Windows.Forms.Button();
-            // NUEVO: timer para animar la solución
-            this.TMRSolucion = new System.Windows.Forms.Timer(this.components);
+            this.TMRRelojAnchuraPrioritaria = new System.Windows.Forms.Timer(this.components);
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.BTNProfundidadLimitada = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
-
+            // 
             // LBL00
+            // 
             this.LBL00.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL00.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL00.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -49,8 +62,9 @@ namespace IA2026
             this.LBL00.Text = "1";
             this.LBL00.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL00.Click += new System.EventHandler(this.LBL00_Click);
-
+            // 
             // LBL01
+            // 
             this.LBL01.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL01.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -61,8 +75,9 @@ namespace IA2026
             this.LBL01.Text = "2";
             this.LBL01.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL01.Click += new System.EventHandler(this.LBL01_Click);
-
+            // 
             // LBL02
+            // 
             this.LBL02.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL02.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -73,8 +88,9 @@ namespace IA2026
             this.LBL02.Text = "3";
             this.LBL02.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL02.Click += new System.EventHandler(this.LBL02_Click);
-
+            // 
             // LBL12
+            // 
             this.LBL12.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL12.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -85,8 +101,9 @@ namespace IA2026
             this.LBL12.Text = "6";
             this.LBL12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL12.Click += new System.EventHandler(this.LBL12_Click);
-
+            // 
             // LBL11
+            // 
             this.LBL11.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL11.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -97,8 +114,9 @@ namespace IA2026
             this.LBL11.Text = "5";
             this.LBL11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL11.Click += new System.EventHandler(this.LBL11_Click);
-
+            // 
             // LBL10
+            // 
             this.LBL10.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL10.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -109,8 +127,9 @@ namespace IA2026
             this.LBL10.Text = "0";
             this.LBL10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL10.Click += new System.EventHandler(this.LBL10_Click);
-
+            // 
             // LBL22
+            // 
             this.LBL22.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL22.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -121,8 +140,9 @@ namespace IA2026
             this.LBL22.Text = "4";
             this.LBL22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL22.Click += new System.EventHandler(this.LBL22_Click);
-
+            // 
             // LBL21
+            // 
             this.LBL21.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL21.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -133,8 +153,9 @@ namespace IA2026
             this.LBL21.Text = "8";
             this.LBL21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL21.Click += new System.EventHandler(this.LBL21_Click);
-
+            // 
             // LBL20
+            // 
             this.LBL20.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBL20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBL20.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -145,71 +166,97 @@ namespace IA2026
             this.LBL20.Text = "7";
             this.LBL20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LBL20.Click += new System.EventHandler(this.LBL20_Click);
-
+            // 
             // BTNDesordenar
+            // 
             this.BTNDesordenar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTNDesordenar.Location = new System.Drawing.Point(420, 12);
             this.BTNDesordenar.Name = "BTNDesordenar";
-            this.BTNDesordenar.Size = new System.Drawing.Size(190, 51);
+            this.BTNDesordenar.Size = new System.Drawing.Size(291, 51);
             this.BTNDesordenar.TabIndex = 9;
             this.BTNDesordenar.Text = "Desordenar";
             this.BTNDesordenar.UseVisualStyleBackColor = true;
             this.BTNDesordenar.Click += new System.EventHandler(this.BTNDesordenar_Click);
-
-            // TMRReloj (sin cambios)
+            // 
+            // TMRReloj
+            // 
             this.TMRReloj.Tick += new System.EventHandler(this.TMRReloj_Tick);
-
+            // 
             // LBLContador
+            // 
             this.LBLContador.BackColor = System.Drawing.Color.LightSkyBlue;
             this.LBLContador.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LBLContador.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBLContador.Location = new System.Drawing.Point(420, 66);
             this.LBLContador.Name = "LBLContador";
-            this.LBLContador.Size = new System.Drawing.Size(190, 73);
+            this.LBLContador.Size = new System.Drawing.Size(291, 73);
             this.LBLContador.TabIndex = 10;
             this.LBLContador.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-            // BTNAnchuraPrioritaria (ya lo puso el ingeniero)
-            this.BTNAnchuraPrioritaria.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNAnchuraPrioritaria.Location = new System.Drawing.Point(420, 160);
-            this.BTNAnchuraPrioritaria.Name = "BTNAnchuraPrioritaria";
-            this.BTNAnchuraPrioritaria.Size = new System.Drawing.Size(190, 51);
-            this.BTNAnchuraPrioritaria.TabIndex = 12;
-            this.BTNAnchuraPrioritaria.Text = "Anchura Prioritaria";
-            this.BTNAnchuraPrioritaria.UseVisualStyleBackColor = true;
-            this.BTNAnchuraPrioritaria.Click += new System.EventHandler(this.BTNAnchuraPrioritaria_Click);
-
+            // 
             // BTNGenerarHijos
+            // 
             this.BTNGenerarHijos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNGenerarHijos.Location = new System.Drawing.Point(420, 227);
+            this.BTNGenerarHijos.Location = new System.Drawing.Point(420, 148);
             this.BTNGenerarHijos.Name = "BTNGenerarHijos";
-            this.BTNGenerarHijos.Size = new System.Drawing.Size(190, 51);
+            this.BTNGenerarHijos.Size = new System.Drawing.Size(291, 60);
             this.BTNGenerarHijos.TabIndex = 11;
             this.BTNGenerarHijos.Text = "Generar Hijos";
             this.BTNGenerarHijos.UseVisualStyleBackColor = true;
             this.BTNGenerarHijos.Click += new System.EventHandler(this.BTNGenerarHijos_Click);
-
+            // 
             // BTNEsFinal
+            // 
             this.BTNEsFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNEsFinal.Location = new System.Drawing.Point(420, 284);
+            this.BTNEsFinal.Location = new System.Drawing.Point(420, 214);
             this.BTNEsFinal.Name = "BTNEsFinal";
-            this.BTNEsFinal.Size = new System.Drawing.Size(190, 51);
+            this.BTNEsFinal.Size = new System.Drawing.Size(291, 64);
             this.BTNEsFinal.TabIndex = 12;
             this.BTNEsFinal.Text = "Es Final";
             this.BTNEsFinal.UseVisualStyleBackColor = true;
             this.BTNEsFinal.Click += new System.EventHandler(this.BTNEsFinal_Click);
-
-            //TMRSolucion
-            // Interval = 500 se activa cada medio segundo
-            // Conectado al método TMRSolucion_Tick del .cs
-           
-            this.TMRSolucion.Interval = 500;
-            this.TMRSolucion.Tick += new System.EventHandler(this.TMRSolucion_Tick);
-
+            // 
+            // BTNAnchuraPrioritaria
+            // 
+            this.BTNAnchuraPrioritaria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNAnchuraPrioritaria.Location = new System.Drawing.Point(420, 288);
+            this.BTNAnchuraPrioritaria.Name = "BTNAnchuraPrioritaria";
+            this.BTNAnchuraPrioritaria.Size = new System.Drawing.Size(291, 43);
+            this.BTNAnchuraPrioritaria.TabIndex = 13;
+            this.BTNAnchuraPrioritaria.Text = "Anchura Prioritaria";
+            this.BTNAnchuraPrioritaria.UseVisualStyleBackColor = true;
+            this.BTNAnchuraPrioritaria.Click += new System.EventHandler(this.BTNAnchuraPrioritaria_Click);
+            // 
+            // TMRRelojAnchuraPrioritaria
+            // 
+            this.TMRRelojAnchuraPrioritaria.Interval = 500;
+            this.TMRRelojAnchuraPrioritaria.Tick += new System.EventHandler(this.TMRRelojAnchuraPrioritaria_Tick);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(420, 337);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(291, 22);
+            this.numericUpDown1.TabIndex = 14;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // BTNProfundidadLimitada
+            // 
+            this.BTNProfundidadLimitada.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNProfundidadLimitada.Location = new System.Drawing.Point(420, 365);
+            this.BTNProfundidadLimitada.Name = "BTNProfundidadLimitada";
+            this.BTNProfundidadLimitada.Size = new System.Drawing.Size(291, 51);
+            this.BTNProfundidadLimitada.TabIndex = 15;
+            this.BTNProfundidadLimitada.Text = "Profundidad Limitada";
+            this.BTNProfundidadLimitada.UseVisualStyleBackColor = true;
+            this.BTNProfundidadLimitada.Click += new System.EventHandler(this.BTNProfundidadLimitada_Click);
+            // 
             // FRMOchoPuzzle
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 428);
+            this.ClientSize = new System.Drawing.Size(723, 428);
+            this.Controls.Add(this.BTNProfundidadLimitada);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.BTNAnchuraPrioritaria);
             this.Controls.Add(this.BTNEsFinal);
             this.Controls.Add(this.BTNGenerarHijos);
@@ -228,7 +275,9 @@ namespace IA2026
             this.Name = "FRMOchoPuzzle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "8 Puzzle";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -248,7 +297,9 @@ namespace IA2026
         private System.Windows.Forms.Button BTNGenerarHijos;
         private System.Windows.Forms.Button BTNEsFinal;
         private System.Windows.Forms.Button BTNAnchuraPrioritaria;
-        // NUEVO: declaración del timer de animación
-        private System.Windows.Forms.Timer TMRSolucion;
+        private System.Windows.Forms.Timer TMRRelojAnchuraPrioritaria;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button BTNProfundidadLimitada;
     }
 }
+

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,97 +8,205 @@ namespace IA2026
 {
     public static class CLAlgoritmosDeBusqueda
     {
-        // Comparamos dos tableros celda a celda
-        private static bool SonIguales(CLEstado a, CLEstado b)
+        public static List<CLEstado> AnchuraPrioritaria(CLEstado Inicial)
         {
-            for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 3; j++)
-                    if (a.tablero[i, j] != b.tablero[i, j])
-                        return false;
-            return true;
+            //Definición de variables
+            List<CLEstado> Solucion = new List<CLEstado>();
+            List<CLEstado> Abiertos = new List<CLEstado>();
+            List<CLEstado> Cerrados = new List<CLEstado>();
+            List<CLEstado> Hijos = new List<CLEstado>();
+            CLEstado Actual = new CLEstado();
+
+            //Algoritmo
+            Inicial.nivel = 0;
+            Inicial.padre = null;
+
+            Abiertos.Add(Inicial);
+
+            while (Abiertos.Count > 0)
+            {
+                Actual = Abiertos[0];
+
+                if (Actual.EsFinal())
+                    break;
+
+                Cerrados.Add(Actual);
+                Abiertos.RemoveAt(0);
+
+                Hijos = Actual.GenerarHijos();
+
+                foreach (CLEstado h in Hijos)
+                {
+                    h.padre = Actual;
+                    h.nivel = Actual.nivel + 1;
+                }
+
+                Hijos = TratarRepetidos(Hijos, Abiertos, Cerrados);
+
+                foreach (CLEstado a in Hijos)
+                    Abiertos.Add(a);
+            }
+
+            //Reconstrucción de la solución
+            if (Actual.EsFinal())
+            {
+                Solucion.Add(Actual);
+
+                while (Actual.padre != null)
+                {
+                    Solucion.Add(Actual.padre);
+                    Actual = Actual.padre;
+                }
+
+                Solucion.Reverse();
+            }
+
+            return Solucion;
         }
 
-        // Filtra hijos que ya están en Abiertos o Cerrados
+        public static List<CLEstado> ProfundidadLimitada(CLEstado Inicial, int Limite)
+        {
+            //Definición de variables
+            List<CLEstado> Solucion = new List<CLEstado>();
+            List<CLEstado> Abiertos = new List<CLEstado>();
+            List<CLEstado> Cerrados = new List<CLEstado>();
+            List<CLEstado> Hijos = new List<CLEstado>();
+            CLEstado Actual = new CLEstado();
+
+            //Algoritmo
+            Inicial.nivel = 0;
+            Inicial.padre = null;
+
+            Abiertos.Add(Inicial);
+
+            while (Abiertos.Count > 0)
+            {
+                Actual = Abiertos[Abiertos.Count - 1];
+
+                if (Actual.EsFinal())
+                    break;
+
+                Cerrados.Add(Actual);
+                Abiertos.RemoveAt(Abiertos.Count - 1);
+
+                //Control del límite
+                if (Actual.nivel < Limite)
+                {
+                    Hijos = Actual.GenerarHijos();
+
+                    foreach (CLEstado h in Hijos)
+                    {
+                        h.padre = Actual;
+                        h.nivel = Actual.nivel + 1;
+                    }
+
+                    Hijos = TratarRepetidosProfundidad(Hijos, Abiertos, Cerrados);
+
+                    foreach (CLEstado a in Hijos)
+                        Abiertos.Add(a);
+                }
+            }
+
+            //Reconstrucción de la solución
+            if (Actual.EsFinal())
+            {
+                Solucion.Add(Actual);
+
+                while (Actual.padre != null)
+                {
+                    Solucion.Add(Actual.padre);
+                    Actual = Actual.padre;
+                }
+
+                Solucion.Reverse();
+            }
+
+            return Solucion;
+        }
+
         private static List<CLEstado> TratarRepetidos(List<CLEstado> hijos,
-                                                       List<CLEstado> abiertos,
-                                                       List<CLEstado> cerrados)
+                                                      List<CLEstado> abiertos,
+                                                      List<CLEstado> cerrados)
         {
             List<CLEstado> HijosDepurado = new List<CLEstado>();
             bool encontrado = false;
 
-            foreach (CLEstado a in hijos)
+            foreach (CLEstado hijo in hijos)
             {
                 encontrado = false;
 
-                foreach (CLEstado b in abiertos)
+                //Comparar con abiertos
+                foreach (CLEstado a in abiertos)
                 {
-                    if (SonIguales(a, b)) { encontrado = true; break; }
+                    if (hijo.EsIgual(a))
+                    {
+                        encontrado = true;
+                        break;
+                    }
                 }
 
-                if (!encontrado)
+                if (encontrado)
+                    continue;
+
+                //Comparar con cerrados
+                foreach (CLEstado c in cerrados)
                 {
-                    foreach (CLEstado b in cerrados)
+                    if (hijo.EsIgual(c))
                     {
-                        if (SonIguales(a, b)) { encontrado = true; break; }
+                        encontrado = true;
+                        break;
                     }
                 }
 
                 if (!encontrado)
-                    HijosDepurado.Add(a);
+                    HijosDepurado.Add(hijo);
             }
 
             return HijosDepurado;
         }
 
-        public static List<CLEstado> AnchuraPrioritaria(CLEstado Inicial)
+        private static List<CLEstado> TratarRepetidosProfundidad(List<CLEstado> hijos,
+                                                                 List<CLEstado> abiertos,
+                                                                 List<CLEstado> cerrados)
         {
-            List<CLEstado> Solucion = new List<CLEstado>();
-            List<CLEstado> Abiertos = new List<CLEstado>();
-            List<CLEstado> Cerrados = new List<CLEstado>();
-            List<CLEstado> Hijos    = new List<CLEstado>();
+            List<CLEstado> HijosDepurado = new List<CLEstado>();
+            bool encontrado = false;
 
-            Dictionary<CLEstado, CLEstado> Padre = new Dictionary<CLEstado, CLEstado>();
-
-            Abiertos.Add(Inicial);
-            Padre[Inicial] = null;
-
-            // el while verifica Abiertos.Count > 0
-            // pasos que debo seguir
-            //   Verificar que haya nodos por explorar
-            //    Tomar el primero
-            //    Si es final es correcto  salir
-            //   Si no debe expandir y continuar
-            while (Abiertos.Count > 0)
+            foreach (CLEstado hijo in hijos)
             {
-                CLEstado Actual = Abiertos[0]; // tomamos el primero de abiertos
-                Abiertos.RemoveAt(0);          // lo scaamos de Abiertos
-                Cerrados.Add(Actual);          // lo pasamos a  Cerrados
+                encontrado = false;
 
-                // Si es el estado final es true reconstruir camino y salir
-                if (Actual.EsFinal())
+                //Comparar con abiertos
+                foreach (CLEstado a in abiertos)
                 {
-                    CLEstado nodo = Actual;
-                    while (nodo != null)
+                    if (hijo.EsIgual(a))
                     {
-                        Solucion.Insert(0, nodo);
-                        Padre.TryGetValue(nodo, out nodo);
+                        encontrado = true;
+                        break;
                     }
-                    return Solucion; // retornar inmediatamente
                 }
 
-                // Si es final es falso,  generar hijos y agregarlos a Abiertos
-                Hijos = Actual.GenerarHijos();
-                Hijos = TratarRepetidos(Hijos, Abiertos, Cerrados);
+                if (encontrado)
+                    continue;
 
-                foreach (CLEstado a in Hijos)
+                //Comparar con cerrados
+                foreach (CLEstado c in cerrados)
                 {
-                    Abiertos.Add(a);
-                    Padre[a] = Actual;
+                    if (hijo.EsIgual(c))
+                    {
+                        if (hijo.nivel >= c.nivel)
+                        {
+                            encontrado = true;
+                            break;
+                        }
+                    }
                 }
+
+                if (!encontrado)
+                    HijosDepurado.Add(hijo);
             }
 
-            // Si salimos del while sin encontrar solución la Solucion queda vacío
-            return Solucion;
+            return HijosDepurado;
         }
     }
 }
