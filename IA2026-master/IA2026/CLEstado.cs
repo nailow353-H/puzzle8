@@ -358,7 +358,108 @@ namespace IA2026
 
             return true;
         }
+public int CalcularH1()
+{
+    int fichasIncorrectas = 0;
+    int[,] objetivo = new int[3, 3]
+    {
+        { 1, 2, 3 },
+        { 4, 5, 6 },
+        { 7, 8, 0 }
+    };
 
-        #endregion
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (_tablero[i, j] != objetivo[i, j])
+            {
+                fichasIncorrectas++;
+            }
+        }
     }
+
+    return fichasIncorrectas;
+}
+
+/// <summary>
+/// H2: Distancia Manhattan (suma de distancias de cada ficha a su posición correcta)
+/// </summary>
+public int CalcularH2()
+{
+    int distanciaTotal = 0;
+    int[,] objetivo = new int[3, 3]
+    {
+        { 1, 2, 3 },
+        { 4, 5, 6 },
+        { 7, 8, 0 }
+    };
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (_tablero[i, j] != 0)
+            {
+                // Encontrar la posición correcta del número actual
+                for (int oi = 0; oi < 3; oi++)
+                {
+                    for (int oj = 0; oj < 3; oj++)
+                    {
+                        if (objetivo[oi, oj] == _tablero[i, j])
+                        {
+                            // Sumar la distancia Manhattan
+                            distanciaTotal += Math.Abs(i - oi) + Math.Abs(j - oj);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return distanciaTotal;
+}
+
+/// <summary>
+/// H3: Distancia Euclideana (raíz cuadrada de la suma de distancias al cuadrado)
+/// </summary>
+public int CalcularH3()
+{
+    int distanciaEuclideana = 0;
+    int[,] objetivo = new int[3, 3]
+    {
+        { 1, 2, 3 },
+        { 4, 5, 6 },
+        { 7, 8, 0 }
+    };
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (_tablero[i, j] != 0)
+            {
+                // Encontrar la posición correcta del número actual
+                for (int oi = 0; oi < 3; oi++)
+                {
+                    for (int oj = 0; oj < 3; oj++)
+                    {
+                        if (objetivo[oi, oj] == _tablero[i, j])
+                        {
+                            // Calcular distancia euclideana
+                            int dx = i - oi;
+                            int dy = j - oj;
+                            distanciaEuclideana += (int)Math.Sqrt(dx * dx + dy * dy);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return distanciaEuclideana;
+}
+
+#endregion
+ }   
 }
