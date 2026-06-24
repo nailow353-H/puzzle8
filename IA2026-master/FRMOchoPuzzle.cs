@@ -1,0 +1,719 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace IA2026
+{
+    public partial class FRMOchoPuzzle : Form
+    {
+        private int contador = 0;
+        private String pos0;
+        private String[,] posiciones;
+        private int contadorAnchura = 0;
+        private List<CLEstado> Resultado = new List<CLEstado>();
+        bool bandera = false;
+        public FRMOchoPuzzle()
+        {
+            InitializeComponent();
+            LBL00.Text = "1";
+            LBL01.Text = "4";
+            LBL02.Text = "2";
+            LBL10.Text = "7";
+            LBL11.Text = "3";
+            LBL12.Text = "5";
+            LBL20.Text = "6";
+            LBL21.Text = "8";
+            LBL22.Text = "0";
+        }
+
+        private void LBL00_Click(object sender, EventArgs e)
+        {
+            if (LBL10.Text == "0")
+            {
+                LBL10.Text = LBL00.Text;
+                LBL00.Text = "0";
+            }
+            else if (LBL01.Text == "0")
+            {
+                LBL01.Text = LBL00.Text;
+                LBL00.Text = "0";
+            }
+        }
+
+        private void LBL10_Click(object sender, EventArgs e)
+        {
+            if (LBL00.Text == "0")
+            {
+                LBL00.Text = LBL10.Text;
+                LBL10.Text = "0";
+            }
+            else if (LBL11.Text == "0")
+            {
+                LBL11.Text = LBL10.Text;
+                LBL10.Text = "0";
+            }
+            else if (LBL20.Text == "0")
+            {
+                LBL20.Text = LBL10.Text;
+                LBL10.Text = "0";
+            }
+        }
+
+        private void LBL20_Click(object sender, EventArgs e)
+        {
+            if (LBL10.Text == "0")
+            {
+                LBL10.Text = LBL20.Text;
+                LBL20.Text = "0";
+            }
+            else if (LBL21.Text == "0")
+            {
+                LBL21.Text = LBL20.Text;
+                LBL20.Text = "0";
+            }
+        }
+
+        private void LBL01_Click(object sender, EventArgs e)
+        {
+            if (LBL00.Text == "0")
+            {
+                LBL00.Text = LBL01.Text;
+                LBL01.Text = "0";
+            }
+            else if (LBL11.Text == "0")
+            {
+                LBL11.Text = LBL01.Text;
+                LBL01.Text = "0";
+            }
+            else if (LBL02.Text == "0")
+            {
+                LBL02.Text = LBL01.Text;
+                LBL01.Text = "0";
+            }
+        }
+
+        private void LBL11_Click(object sender, EventArgs e)
+        {
+            if (LBL01.Text == "0")
+            {
+                LBL01.Text = LBL11.Text;
+                LBL11.Text = "0";
+            }
+            else if (LBL10.Text == "0")
+            {
+                LBL10.Text = LBL11.Text;
+                LBL11.Text = "0";
+            }
+            else if (LBL21.Text == "0")
+            {
+                LBL21.Text = LBL11.Text;
+                LBL11.Text = "0";
+            }
+            else if (LBL12.Text == "0")
+            {
+                LBL12.Text = LBL11.Text;
+                LBL11.Text = "0";
+            }
+        }
+
+        private void LBL21_Click(object sender, EventArgs e)
+        {
+            if (LBL11.Text == "0")
+            {
+                LBL11.Text = LBL21.Text;
+                LBL21.Text = "0";
+            }
+            else if (LBL20.Text == "0")
+            {
+                LBL20.Text = LBL21.Text;
+                LBL21.Text = "0";
+            }
+            else if (LBL22.Text == "0")
+            {
+                LBL22.Text = LBL21.Text;
+                LBL21.Text = "0";
+            }
+        }
+
+        private void LBL02_Click(object sender, EventArgs e)
+        {
+            if (LBL01.Text == "0")
+            {
+                LBL01.Text = LBL02.Text;
+                LBL02.Text = "0";
+            }
+            else if (LBL12.Text == "0")
+            {
+                LBL12.Text = LBL02.Text;
+                LBL02.Text = "0";
+            }
+        }
+
+        private void LBL12_Click(object sender, EventArgs e)
+        {
+            if (LBL11.Text == "0")
+            {
+                LBL11.Text = LBL12.Text;
+                LBL12.Text = "0";
+            }
+            else if (LBL22.Text == "0")
+            {
+                LBL22.Text = LBL12.Text;
+                LBL12.Text = "0";
+            }
+            else if (LBL02.Text == "0")
+            {
+                LBL02.Text = LBL12.Text;
+                LBL12.Text = "0";
+            }
+        }
+
+        private void LBL22_Click(object sender, EventArgs e)
+        {
+            if (LBL21.Text == "0")
+            {
+                LBL21.Text = LBL22.Text;
+                LBL22.Text = "0";
+            }
+            else if (LBL12.Text == "0")
+            {
+                LBL12.Text = LBL22.Text;
+                LBL22.Text = "0";
+            }
+        }
+
+        private void BTNDesordenar_Click(object sender, EventArgs e)
+        {
+            TMRReloj.Enabled = true;
+        }
+
+        private void TMRReloj_Tick(object sender, EventArgs e)
+        {
+            posiciones = new string[3, 3];
+
+            posiciones[0, 0] = LBL00.Text;
+            posiciones[0, 1] = LBL01.Text;
+            posiciones[0, 2] = LBL02.Text;
+            posiciones[1, 0] = LBL10.Text;
+            posiciones[1, 1] = LBL11.Text;
+            posiciones[1, 2] = LBL12.Text;
+            posiciones[2, 0] = LBL20.Text;
+            posiciones[2, 1] = LBL21.Text;
+            posiciones[2, 2] = LBL22.Text;
+
+
+
+            if (contador < 50)
+            {
+                contador++;
+                LBLContador.Text = contador.ToString();
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (posiciones[i, j] == "0")
+                        {
+                            pos0 = i.ToString() + j.ToString();
+                        }
+
+                    }
+                }
+
+                Random rn = new Random();
+                int aleatorio = 0;
+                switch (pos0)
+                {
+                    case "00":
+                        aleatorio = rn.Next(1, 3);
+                        if (aleatorio == 1)
+                        {
+                            LBL00.Text = LBL10.Text;
+                            LBL10.Text = "0";
+                        }
+                        else
+                        {
+                            LBL00.Text = LBL01.Text;
+                            LBL01.Text = "0";
+                        }
+
+                        break;
+                    case "01":
+
+                        aleatorio = rn.Next(1, 4);
+                        if (aleatorio == 1)
+                        {
+                            LBL01.Text = LBL00.Text;
+                            LBL00.Text = "0";
+                        }
+                        else
+                        {
+                            if (aleatorio == 2)
+                            {
+                                LBL01.Text = LBL11.Text;
+                                LBL11.Text = "0";
+                            }
+                            else
+                            {
+                                LBL01.Text = LBL02.Text;
+                                LBL02.Text = "0";
+
+                            }
+                        }
+
+                        break;
+                    case "02":
+                        aleatorio = rn.Next(1, 3);
+                        if (aleatorio == 1)
+                        {
+                            LBL02.Text = LBL01.Text;
+                            LBL01.Text = "0";
+                        }
+                        else
+                        {
+                            LBL02.Text = LBL12.Text;
+                            LBL12.Text = "0";
+                        }
+
+                        break;
+                    case "10":
+                        aleatorio = rn.Next(1, 4);
+                        if (aleatorio == 1)
+                        {
+                            LBL10.Text = LBL00.Text;
+                            LBL00.Text = "0";
+                        }
+                        else
+                        {
+                            if (aleatorio == 2)
+                            {
+                                LBL10.Text = LBL11.Text;
+                                LBL11.Text = "0";
+                            }
+                            else
+                            {
+                                LBL10.Text = LBL20.Text;
+                                LBL20.Text = "0";
+
+                            }
+                        }
+
+                        break;
+                    case "11":
+                        aleatorio = rn.Next(1, 5);
+                        if (aleatorio == 1)
+                        {
+                            LBL11.Text = LBL01.Text;
+                            LBL01.Text = "0";
+                        }
+                        else
+                        {
+                            if (aleatorio == 2)
+                            {
+                                LBL11.Text = LBL12.Text;
+                                LBL12.Text = "0";
+
+                            }
+                            else
+                            {
+                                if (aleatorio == 3)
+                                {
+                                    LBL11.Text = LBL21.Text;
+                                    LBL21.Text = "0";
+                                }
+                                else
+                                {
+                                    LBL11.Text = LBL10.Text;
+                                    LBL10.Text = "0";
+
+                                }
+                            }
+                        }
+
+                        break;
+                    case "12":
+                        aleatorio = rn.Next(1, 4);
+                        if (aleatorio == 1)
+                        {
+                            LBL12.Text = LBL02.Text;
+                            LBL02.Text = "0";
+                        }
+                        else
+                        {
+                            if (aleatorio == 2)
+                            {
+                                LBL12.Text = LBL11.Text;
+                                LBL11.Text = "0";
+                            }
+                            else
+                            {
+                                LBL12.Text = LBL22.Text;
+                                LBL22.Text = "0";
+
+                            }
+                        }
+
+                        break;
+                    case "20":
+                        aleatorio = rn.Next(1, 3);
+                        if (aleatorio == 1)
+                        {
+                            LBL20.Text = LBL10.Text;
+                            LBL10.Text = "0";
+                        }
+                        else
+                        {
+                            LBL20.Text = LBL21.Text;
+                            LBL21.Text = "0";
+                        }
+
+                        break;
+                    case "21":
+                        aleatorio = rn.Next(1, 4);
+                        if (aleatorio == 1)
+                        {
+                            LBL21.Text = LBL20.Text;
+                            LBL20.Text = "0";
+                        }
+                        else
+                        {
+                            if (aleatorio == 2)
+                            {
+                                LBL21.Text = LBL11.Text;
+                                LBL11.Text = "0";
+                            }
+                            else
+                            {
+                                LBL21.Text = LBL22.Text;
+                                LBL22.Text = "0";
+
+                            }
+                        }
+
+                        break;
+                    case "22":
+
+                        aleatorio = rn.Next(1, 3);
+                        if (aleatorio == 1)
+                        {
+                            LBL22.Text = LBL21.Text;
+                            LBL21.Text = "0";
+                        }
+                        else
+                        {
+                            LBL22.Text = LBL12.Text;
+                            LBL12.Text = "0";
+                        }
+
+                        break;
+                }
+
+            }
+            else
+            {
+                TMRReloj.Enabled = false;
+                MessageBox.Show("Reloj apagado");
+                LBLContador.Text = "";
+                contador = 0;
+            }
+        }
+
+        private void BTNGenerarHijos_Click(object sender, EventArgs e)
+        {
+            CLEstado Inicial = new CLEstado(Convert.ToInt32(LBL00.Text),
+                                            Convert.ToInt32(LBL01.Text),
+                                            Convert.ToInt32(LBL02.Text),
+                                            Convert.ToInt32(LBL10.Text),
+                                            Convert.ToInt32(LBL11.Text),
+                                            Convert.ToInt32(LBL12.Text),
+                                            Convert.ToInt32(LBL20.Text),
+                                            Convert.ToInt32(LBL21.Text),
+                                            Convert.ToInt32(LBL22.Text)
+                                            );
+            List<CLEstado> Hijos = Inicial.GenerarHijos();
+            FRMHijos A = new FRMHijos();
+            A.Hijos = Hijos;
+            A.ShowDialog();
+        }
+
+        private void BTNEsFinal_Click(object sender, EventArgs e)
+        {
+            CLEstado Inicial = new CLEstado(Convert.ToInt32(LBL00.Text),
+                                            Convert.ToInt32(LBL01.Text),
+                                            Convert.ToInt32(LBL02.Text),
+                                            Convert.ToInt32(LBL10.Text),
+                                            Convert.ToInt32(LBL11.Text),
+                                            Convert.ToInt32(LBL12.Text),
+                                            Convert.ToInt32(LBL20.Text),
+                                            Convert.ToInt32(LBL21.Text),
+                                            Convert.ToInt32(LBL22.Text)
+                                            );
+            if (Inicial.EsFinal())
+            {
+                MessageBox.Show("ES el estado FINAL");
+            }
+            else
+            {
+                MessageBox.Show("NO ES el estado FINAL");
+            }
+        }
+
+        private void BTNAnchuraPrioritaria_Click(object sender, EventArgs e)
+        {
+            CLEstado Inicial = new CLEstado(Convert.ToInt32(LBL00.Text),
+                                            Convert.ToInt32(LBL01.Text),
+                                            Convert.ToInt32(LBL02.Text),
+                                            Convert.ToInt32(LBL10.Text),
+                                            Convert.ToInt32(LBL11.Text),
+                                            Convert.ToInt32(LBL12.Text),
+                                            Convert.ToInt32(LBL20.Text),
+                                            Convert.ToInt32(LBL21.Text),
+                                            Convert.ToInt32(LBL22.Text)
+                                            );
+            Resultado = new List<CLEstado>();
+            Resultado = CLAlgoritmosDeBusqueda.AnchuraPrioritaria(Inicial);
+            if (Resultado.Count > 0)
+            {
+                MessageBox.Show("Solucion Encontrada en el nivel " + (Resultado.Count - 1).ToString());
+                //Resolver graficamente                
+                TMRRelojAnchuraPrioritaria.Enabled = true;
+            }
+            else
+            { MessageBox.Show("Solucion No Encontrada"); }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TMRRelojAnchuraPrioritaria_Tick(object sender, EventArgs e)
+        {
+
+            if ((contadorAnchura < Resultado.Count) && (!bandera))
+            {
+                EstadoATablero(Resultado[Resultado.Count - contadorAnchura - 1]);
+                contadorAnchura++;
+            }
+            if ((contadorAnchura == Resultado.Count) && (!bandera))
+            {
+                bandera = true;
+                contadorAnchura--;
+
+                TMRRelojAnchuraPrioritaria.Enabled = false;
+
+                DialogResult r = MessageBox.Show(
+                    "El puzzle volvera a desordenarse por la misma ruta",
+                    "Listo",
+                    MessageBoxButtons.OKCancel
+                );
+
+                if (r == DialogResult.OK)
+                {
+                    TMRRelojAnchuraPrioritaria.Enabled = true;
+                }
+            }
+            if ((contadorAnchura >= 0) && (bandera))
+            {
+                EstadoATablero(Resultado[Resultado.Count - contadorAnchura - 1]);
+                contadorAnchura--;
+            }
+            if ((contadorAnchura == -1) && (bandera))
+            {
+                TMRRelojAnchuraPrioritaria.Enabled = false;
+
+                bandera = false;
+                contadorAnchura = 0;
+
+                MessageBox.Show(
+                    "El puzzle regreso al estado desordenado original"
+                );
+            }
+        }
+
+        private void EstadoATablero(CLEstado Estado)
+        {
+            LBL00.Text = Estado.tablero[0, 0].ToString();
+            LBL01.Text = Estado.tablero[0, 1].ToString();
+            LBL02.Text = Estado.tablero[0, 2].ToString();
+            LBL10.Text = Estado.tablero[1, 0].ToString();
+            LBL11.Text = Estado.tablero[1, 1].ToString();
+            LBL12.Text = Estado.tablero[1, 2].ToString();
+            LBL20.Text = Estado.tablero[2, 0].ToString();
+            LBL21.Text = Estado.tablero[2, 1].ToString();
+            LBL22.Text = Estado.tablero[2, 2].ToString();
+        }
+
+        private void BTNProfundidadLimitada_Click(object sender, EventArgs e)
+        {
+            CLEstado Inicial = new CLEstado(
+                Convert.ToInt32(LBL00.Text),
+                Convert.ToInt32(LBL01.Text),
+                Convert.ToInt32(LBL02.Text),
+                Convert.ToInt32(LBL10.Text),
+                Convert.ToInt32(LBL11.Text),
+                Convert.ToInt32(LBL12.Text),
+                Convert.ToInt32(LBL20.Text),
+                Convert.ToInt32(LBL21.Text),
+                Convert.ToInt32(LBL22.Text)
+            );
+
+            int Limite = Convert.ToInt32(numericUpDown1.Value);
+
+            Resultado = new List<CLEstado>();
+
+            Resultado = CLAlgoritmosDeBusqueda.ProfundidadLimitada(
+                Inicial,
+                Limite
+            );
+
+            if (Resultado.Count > 0)
+            {
+                MessageBox.Show(
+                    "Solucion Encontrada en el nivel "
+                    + (Resultado.Count - 1).ToString()
+                );
+
+                // Reiniciar variables de animación
+                contadorAnchura = 0;
+                bandera = false;
+
+                // Resolver gráficamente
+                TMRRelojAnchuraPrioritaria.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Solucion NO encontrada dentro del limite"
+                );
+            }
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void ProfundidadIteractiva_Click(object sender, EventArgs e)
+        {
+            CLEstado Inicial = new CLEstado(
+                Convert.ToInt32(LBL00.Text),
+                Convert.ToInt32(LBL01.Text),
+                Convert.ToInt32(LBL02.Text),
+                Convert.ToInt32(LBL10.Text),
+                Convert.ToInt32(LBL11.Text),
+                Convert.ToInt32(LBL12.Text),
+                Convert.ToInt32(LBL20.Text),
+                Convert.ToInt32(LBL21.Text),
+                Convert.ToInt32(LBL22.Text)
+            );
+
+            Resultado = new List<CLEstado>();
+
+            // Crear una forma para mostrar los mensajes
+            Form formMensajes = new Form();
+            formMensajes.Text = "Profundidad Iterativa - Búsqueda";
+            formMensajes.Size = new System.Drawing.Size(400, 300);
+            formMensajes.StartPosition = FormStartPosition.CenterParent;
+            formMensajes.Owner = this;
+
+            RichTextBox rtbMensajes = new RichTextBox();
+            rtbMensajes.Dock = System.Windows.Forms.DockStyle.Fill;
+            rtbMensajes.ReadOnly = true;
+            formMensajes.Controls.Add(rtbMensajes);
+
+            formMensajes.Show();
+
+            // Ejecutar búsqueda con mensajes
+            Resultado = CLAlgoritmosDeBusqueda.ProfundidadIterativa(
+                Inicial,
+                mensaje => rtbMensajes.AppendText(mensaje + Environment.NewLine)
+            );
+
+            if (Resultado.Count > 0)
+            {
+                MessageBox.Show(
+                    "¡Solución Encontrada en el nivel " + (Resultado.Count - 1).ToString() + "!",
+                    "Éxito"
+                );
+
+                // Reiniciar variables de animación
+                contadorAnchura = 0;
+                bandera = false;
+
+                // Resolver gráficamente
+                TMRRelojAnchuraPrioritaria.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Solución NO encontrada",
+                    "Sin Resultado"
+                );
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTNAlgoritmoA_Click(object sender, EventArgs e)
+        {
+            // 1. Crear el estado inicial con el tablero de tu diapositiva
+            CLEstado estadoInicial = new CLEstado(
+                1, 4, 2,  // Fila 1
+                7, 3, 5,  // Fila 2
+                6, 8, 0   // Fila 3 (El 0 es el espacio vacío)
+            );
+
+            // 2. Ejecutar el Algoritmo A pasando la Heurística 2 (Distancia de Manhattan)
+            int tipoHeuristica = 2;
+            List<CLEstado> caminoSolucion = CLAlgoritmosDeBusqueda.BusquedaAlgoritmoA(estadoInicial, tipoHeuristica);
+
+            // 3. Mostrar los resultados en cuadros de mensaje paso a paso
+            if (caminoSolucion != null && caminoSolucion.Count > 0)
+            {
+                int movimientosTotales = caminoSolucion.Count - 1;
+
+                // Clonamos la lista para vaciarla al igual que en tu Profundidad Limitada
+                List<CLEstado> clonSolucion = new List<CLEstado>(caminoSolucion);
+                int paso = 0;
+
+                // Recorremos desde el final hacia adelante (desde el estado inicial hasta la meta)
+                while (clonSolucion.Count > 0)
+                {
+                    CLEstado actual = clonSolucion[clonSolucion.Count - 1];
+
+                    // Diseñamos el diseño visual del tablero en 3x3 para el MessageBox
+                    string diseñoTablero = $"Paso {paso}:\n\n" +
+                                           $"[ {actual.tablero[0, 0]} ]  [ {actual.tablero[0, 1]} ]  [ {actual.tablero[0, 2]} ]\n" +
+                                           $"[ {actual.tablero[1, 0]} ]  [ {actual.tablero[1, 1]} ]  [ {actual.tablero[1, 2]} ]\n" +
+                                           $"[ {actual.tablero[2, 0]} ]  [ {actual.tablero[2, 1]} ]  [ {actual.tablero[2, 2]} ]";
+
+                    // Mostrar el estado actual en pantalla
+                    MessageBox.Show(diseñoTablero, "Solución del Algoritmo A");
+
+                    paso++;
+                    clonSolucion.RemoveAt(clonSolucion.Count - 1);
+                }
+
+                // Mensaje final que indica que se terminó de mostrar la ruta óptima
+                MessageBox.Show($"¡Fin de la solución!\nTotal de movimientos requeridos: {movimientosTotales}", "Algoritmo A Completado");
+            }
+            else
+            {
+                MessageBox.Show("No se pudo encontrar una solución para este tablero.");
+            }
+        }
+    }
+}
+
